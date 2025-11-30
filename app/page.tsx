@@ -220,7 +220,7 @@ const Navbar = () => {
           </div>
           <div className="leading-none hidden md:block">
             <span className="block font-bold text-emerald-950 tracking-tight text-lg">
-              REVOLUTION
+              Chrildren Finance
             </span>
             <span className="block text-[9px] text-emerald-700 uppercase tracking-[0.2em] font-medium">
               Academy
@@ -350,9 +350,11 @@ const Hero = () => (
                   className="w-10 h-10 rounded-full border-2 border-white bg-stone-200 overflow-hidden"
                 >
                   <img
-                    src={`https://images.unsplash.com/photo-${
+                    src={
+                      `https://images.unsplash.com/photo-${
                       1500000000000 + i
-                    }?auto=format&fit=crop&w=64&h=64`}
+                    }?auto=format&fit=crop&w=64&h=64`
+                  }
                     alt="User"
                     className="w-full h-full object-cover"
                   />
@@ -384,9 +386,9 @@ const Hero = () => (
         <div className="absolute w-[500px] h-[500px] bg-stone-100 rounded-full -z-10"></div>
 
         {/* Photo Enfant Principale */}
-        <div className="relative z-10 w-72 md:w-80 aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform -rotate-3">
+        <div className="relative z-10 w-72 md:w-80 aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white transform -rotate-3 md:mr-20">
           <img
-            src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=600&h=800"
+            src="https://lirp.cdn-website.com/546572dd/dms3rep/multi/opt/cursos-kids-san-francisco-english-school-97dcd3b1-598w.jpg"
             alt="Enfant étudiant"
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
           />
@@ -1204,12 +1206,12 @@ const Testimonials = () => (
         {/* Visual Grid */}
         <div className="grid grid-cols-2 gap-4">
           <img
-            src="https://images.unsplash.com/photo-1542810634-71277d95dc24?auto=format&fit=crop&w=400&h=500"
+            src="https://th.bing.com/th/id/R.191de6915d8ea1f6c64d77fd215bf10f?rik=g0nnNBmrQp%2b0Ag&riu=http%3a%2f%2fvertexsmarter.com%2fwp-content%2fuploads%2f2024%2f05%2fKings-Inter-High-secondary.jpg&ehk=kuedLrQ8VscJh2np4DerE%2fX7997f2kaN1vaO4AP%2fSNk%3d&risl=&pid=ImgRaw&r=0"
             className="rounded-2xl shadow-lg mt-8"
             alt="Happy Kid"
           />
           <img
-            src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=400&h=500"
+            src="https://tse1.explicit.bing.net/th/id/OIP.7DvmsgTX-ucDUCCPHAGRPQHaL3?pid=ImgDet&w=198&h=316&c=7&dpr=1.3&o=7&rm=3"
             className="rounded-2xl shadow-lg"
             alt="Happy Kid Learning"
           />
@@ -1219,49 +1221,78 @@ const Testimonials = () => (
   </section>
 );
 
-const Pricing = () => (
-  <section id="tarifs" className="py-24 bg-white">
-    <div className="container mx-auto px-6 text-center max-w-4xl">
-      <SectionLabel text="Investissement" />
-      <h2 className="font-serif text-4xl text-emerald-950 mb-6">
-        Des tarifs simples et transparents
-      </h2>
+const Pricing = () => {
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
 
-      <div className="bg-stone-50 p-1 rounded-full inline-flex mb-12">
-        <button className="px-6 py-2 rounded-full bg-white text-emerald-950 shadow-sm text-sm font-bold">
-          Trimestriel
-        </button>
-        <button className="px-6 py-2 rounded-full text-stone-500 text-sm font-medium hover:text-emerald-900">
-          Annuel (-20%)
-        </button>
-      </div>
+  const monthlyPrice = 15000;
+  const annualPrice = monthlyPrice * 12 * 0.8; // 20% discount
+  const displayPrice = billingCycle === "monthly" ? monthlyPrice : annualPrice;
+  const billingText = billingCycle === "monthly" ? "FCFA / mois" : "FCFA / an";
 
-      <div className="max-w-md mx-auto bg-white rounded-[2.5rem] p-8 border-2 border-emerald-900 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-2 bg-amber-500"></div>
-        <h3 className="text-emerald-900 font-bold text-xl mb-2">
-          Programme Complet
-        </h3>
-        <div className="flex justify-center items-baseline gap-1 mb-6">
-          <span className="text-4xl font-serif font-bold text-emerald-950">
-            15.000
-          </span>
-          <span className="text-stone-500 font-medium">FCFA / mois</span>
+  return (
+    <section id="tarifs" className="py-24 bg-white">
+      <div className="container mx-auto px-6 text-center max-w-4xl">
+        <SectionLabel text="Investissement" />
+        <h2 className="font-serif text-4xl text-emerald-950 mb-6">
+          Des tarifs simples et transparents
+        </h2>
+
+        <div className="bg-stone-50 p-1 rounded-full inline-flex mb-12">
+          <button
+            onClick={() => setBillingCycle("monthly")}
+            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
+              billingCycle === "monthly"
+                ? "bg-white text-emerald-950 shadow-sm"
+                : "text-stone-500 hover:text-emerald-900"
+            }`}
+          >
+            Trimestriel
+          </button>
+          <button
+            onClick={() => setBillingCycle("annual")}
+            className={`px-6 py-2 rounded-full text-sm font-bold transition-all relative ${
+              billingCycle === "annual"
+                ? "bg-white text-emerald-950 shadow-sm"
+                : "text-stone-500 hover:text-emerald-900"
+            }`}
+          >
+            Annuel
+            {billingCycle === "annual" && (
+              <span className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
+                -20%
+              </span>
+            )}
+          </button>
         </div>
-        <p className="text-sm text-stone-500 mb-8 px-4">
-          Facturé trimestriellement. Accès illimité à la plateforme, aux
-          sessions live et au coaching.
-        </p>
 
-        <Button variant="primary" className="w-full mb-4">
-          Commencer l'essai gratuit
-        </Button>
-        <p className="text-xs text-stone-400">
-          14 jours satisfait ou remboursé. Sans engagement.
-        </p>
+        <div className="max-w-md mx-auto bg-white rounded-[2.5rem] p-8 border-2 border-emerald-900 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-2 bg-amber-500"></div>
+          <h3 className="text-emerald-900 font-bold text-xl mb-2">
+            Programme Complet
+          </h3>
+          <div className="flex justify-center items-baseline gap-1 mb-6">
+            <span className="text-4xl font-serif font-bold text-emerald-950">
+              {displayPrice.toLocaleString()}
+            </span>
+            <span className="text-stone-500 font-medium">{billingText}</span>
+          </div>
+          <p className="text-sm text-stone-500 mb-8 px-4">
+            {billingCycle === "monthly"
+              ? "Facturé trimestriellement. Accès illimité à la plateforme, aux sessions live et au coaching."
+              : "Facturé annuellement avec 20% de réduction. Accès illimité à la plateforme, aux sessions live et au coaching."}
+          </p>
+
+          <Button variant="primary" className="w-full mb-4">
+            Commencer l'essai gratuit
+          </Button>
+          <p className="text-xs text-stone-400">
+            14 jours satisfait ou remboursé. Sans engagement.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // --- COMPOSANT FAQ INTERACTIF ET ANIMÉ ---
 const FAQ = () => {
